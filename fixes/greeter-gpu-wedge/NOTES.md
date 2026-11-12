@@ -1,6 +1,7 @@
 # greeter-gpu-wedge — KNOWN ISSUE (workaround verified)
 
-**Status: known issue. Workaround verified once on this unit;
+**Status: known issue. Workaround verified on this unit;
+trigger chain identified (see the campaign finding at the end);
 root cause not isolated.**
 
 ## Symptom
@@ -63,3 +64,38 @@ you are already logged in and happy, you do not have this problem.
   confirm it is the same fault (look for the greeter named as the
   process in a `ring gfx_0.0.0 timeout`) before assuming this note
   applies.
+
+## Deeper finding — the trigger chain (campaign analysis, added later)
+
+A later robustness campaign re-read that boot's full journal and
+found the chain that led into the wedge — plus one correction to
+the tidy story above.
+
+**The trigger:** on that boot, SDDM's **autologin attempt failed
+inside sddm's first second** — the autologin helper crashed with
+exit code 1 and the session never started — leaving the machine
+stranded on the greeter. The greeter's graphics stack then
+wedged the graphics ring **41 times over ~12 minutes** (a
+timeout roughly every 2 s at the peak), flashing the displays
+the whole while. The identical autologin path had succeeded on
+the previous boot; the one-second exit did not reproduce and its
+inner cause was **not isolated** — it is recorded as a start-up
+race, not a configuration defect. So the chain is: failed
+autologin → stranded greeter → greeter wedges the ring. *Why*
+the greeter's graphics wedge the ring, and why the helper
+exited, both remain open.
+
+**The workaround, re-affirmed — with a caveat.** Restarting sddm
+broke the reset loop instantly, and no ring timeout has occurred
+since. But the first session started immediately after that
+restart **collapsed after ~5 seconds**: the journal shows the
+session's workspace targets being *stopped* as the dying
+greeter's teardown raced the new session's start — plasmashell
+itself started cleanly and was stopped; it did not crash. A
+**second** `systemctl restart sddm` brought the session up
+cleanly, and it stayed up.
+
+Practical version: if the first login right after the fix
+collapses, don't debug the desktop — restart sddm once more.
+The greeter you are looking at may be a fresh process sitting on
+a half-torn-down VT.
