@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily failed-unit companion report
+[Timer]
+OnCalendar=*-*-* 00:05:00
+Persistent=true
+Unit=failed-unit-report.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,5 @@
+[Unit]
+Description=Greeter-wedge detector (log-only, no restart action)
+[Service]
+Type=oneshot
+ExecStart=%h/bin/greeter-wedge-watch.sh --live

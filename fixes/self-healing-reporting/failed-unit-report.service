@@ -1,0 +1,5 @@
+[Unit]
+Description=Z13 failed-unit companion report (read-only)
+[Service]
+Type=oneshot
+ExecStart=%h/bin/failed-unit-report.sh

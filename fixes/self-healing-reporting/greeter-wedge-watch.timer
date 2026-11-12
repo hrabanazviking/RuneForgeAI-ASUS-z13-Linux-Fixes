@@ -1,0 +1,8 @@
+[Unit]
+Description=Greeter-wedge detector log-only dry-run, every 60s
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=60s
+Unit=greeter-wedge-watch.service
+[Install]
+WantedBy=timers.target
