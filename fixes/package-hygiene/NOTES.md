@@ -63,3 +63,31 @@ to save disk the machine did not need saved.
   reusable part; your orphan list will differ.
 - "Investigate" is a destination, not a postponement trick:
   each held cluster names the evidence that would release it.
+
+## Completion update (2026-11-12) — all 114 resolved by name
+
+The investigate set has since been settled, cluster by cluster,
+each on evidence — the list is now fully closed:
+
+- **Java/Groovy cluster:** the hand-installed Gradle was proven
+  self-contained (its own library tree, its own Groovy — it never
+  touches the system Java libraries). With that proven, the
+  owner ruled the system Groovy removed: the `groovy` package
+  and its parser library were purged by name. A final census of
+  the remaining 48 library jars in that cluster showed **zero
+  installed reverse-dependencies outside the cluster**, and all
+  48 were then removed by name in one explicit `apt remove`.
+- **Kept on evidence (8 packages):** the Xorg core server and
+  its mode helper (the X fallback session), a 32-bit Wayland
+  server library (the installed Steam/Wine 32-bit stack), and
+  five native dev headers (threading, video decode, OpenCL)
+  that local AI/build trees compile against.
+- **Final accounting of the original 114:** 52 removed by name
+  (+4 dependent libraries apt pulled with them), 2 purged on
+  the owner's ruling, 48 removed after the reverse-dependency
+  census, 8 kept on evidence. Nothing was ever blanket-removed.
+- The protected stack was re-verified after the final removal:
+  display manager, vendor control daemons, local AI server and
+  web server all active; Vulkan RADV probe passed; the
+  hand-installed Gradle untouched; the live desktop session
+  never disturbed.
