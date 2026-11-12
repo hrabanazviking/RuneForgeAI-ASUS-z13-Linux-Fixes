@@ -1,0 +1,5 @@
+[Unit]
+Description=Z13 power/thermal one-sample watch
+[Service]
+Type=oneshot
+ExecStart=%h/bin/power-thermal-watch.sh
