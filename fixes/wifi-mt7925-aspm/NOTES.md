@@ -50,3 +50,30 @@ drop-outs stopped.
   this is a non-issue; road warriors can weigh it.
 - Driver parameters can change name between kernel versions; if the
   verify command fails, check `modinfo mt7925e` for the current name.
+
+## Community warning — contested on kernels ≥ 6.17 (added later)
+
+Both sides of this one, honestly:
+
+- **Our evidence:** on the reference machine (kernel
+  7.3.0-10-generic) this fix was applied on install day, the drop-outs
+  stopped, and the boot journal since shows no Wi-Fi disconnects or
+  errors with `disable_aspm` reading `Y`. That is a real observation,
+  not a guess.
+- **The dispute:** a careful kernel-by-kernel analysis of this exact
+  machine (th3cavalry's *strix-halo-linux-setup* obsolescence analysis)
+  argues the packet-loss/jitter fault this workaround targets was
+  repaired natively in **kernel 6.17**, and that forcing
+  `disable_aspm=1` on 6.17+ kernels is therefore obsolete — and, if
+  applied where it isn't needed, a needless battery cost. Source:
+  https://github.com/th3cavalry/strix-halo-linux-setup/blob/HEAD/docs/technical/obsolescence-analysis.md
+
+We cannot fully separate, from one machine, how much of the cure was
+this option and how much was the kernel's own state — so the honest
+advice for anyone on a current kernel is: **check behaviour first.**
+Run without this fix and see whether drop-outs actually happen on your
+kernel; apply it only if they do, and A/B it (a boot with, a boot
+without) rather than cargo-culting it because it worked here. The fix
+stays on the reference machine because the harm demonstrably stopped
+with it there — but don't let this page talk you into a power cost
+your kernel may already have made unnecessary.
