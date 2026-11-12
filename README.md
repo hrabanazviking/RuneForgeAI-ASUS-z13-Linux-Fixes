@@ -34,6 +34,7 @@ how to apply, how to verify, and caveats.
 | [folio-keyboard-wakeup](fixes/folio-keyboard-wakeup/) | Folio keyboard can no longer wake the machine after the first suspend | **Fixed** |
 | [s0ix-sleep-drain](fixes/s0ix-sleep-drain/) | S0ix "sleep" keeps draining the battery | **Configured** — suspend-then-hibernate after 2 h |
 | [wifi-mt7925-aspm](fixes/wifi-mt7925-aspm/) | MediaTek MT7925 Wi-Fi drops out | **Fixed** — ASPM disabled for the driver |
+| [ethernet-r8152](fixes/ethernet-r8152/) | USB-C Ethernet (Realtek r8152) link flapping; adapter dead after idle | **Fixed** — software readiness: working udev power rule (the popular modprobe option is a dead parameter — see the notes) and the NetworkManager profile-pinning pitfall both documented |
 | [grub-flags](fixes/grub-flags/) | Panel glitches on wake (PSR/VRR); backlight keys don't work | **Fixed** — kernel flags + GRUB gfx mode |
 | [asus-control-stack](fixes/asus-control-stack/) | No ASUS profiles/control under Linux; PPA has no 26.10 build | **Fixed** — asusctl 6.3.8 + supergfxctl built from source |
 | [pytorch-gfx1151](fixes/pytorch-gfx1151/) | Stock PyTorch ROCm wheel segfaults on gfx1151 | **Fixed** — AMD TheRock arch-matched wheels (+ honest fp32 caveats) |
