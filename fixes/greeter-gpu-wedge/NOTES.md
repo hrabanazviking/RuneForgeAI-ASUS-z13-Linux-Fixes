@@ -99,3 +99,84 @@ Practical version: if the first login right after the fix
 collapses, don't debug the desktop — restart sddm once more.
 The greeter you are looking at may be a fresh process sitting on
 a half-torn-down VT.
+
+## Fix-campaign verdict update (later; supersedes the framing above)
+
+A dedicated fix-campaign team re-did the archaeology across
+**every boot in the journal (8 boots)** and the picture changed
+in three ways. The trigger-chain section above stays as the
+record of the earlier reading; this section is the current
+verdict.
+
+**The census.** Ring timeouts appear in exactly two boots — and
+both coincide with heavy AI GPU stress running on the machine:
+
+- Six boots: zero ring timeouts, zero GPU resets, zero wedges.
+- One boot: 21 timeouts whose faulting processes were a **live
+  user session's** compositor and shell (not the greeter at
+  all), escalating to full GPU resets, during an AI
+  stress-testing window.
+- The greeter boot: 52 timeouts, all inside ~100 seconds
+  (01:51:40–01:53:20) — 41 on the main graphics ring faulting
+  the greeter app, 11 on the second graphics ring faulting the
+  greeter's own compositor. (The "~12 minutes" in the section
+  above measures the whole stranded-greeter episode from boot;
+  the timeout loop itself spans ~100 s. Zero timeouts since the
+  display-manager restart, including through a full login.)
+
+**The verdict.** This is not a greeter defect, and it is not
+the unified-memory kernel parameters:
+
+1. The victim is whichever graphics client is submitting when
+   the episode strikes — in the other wedged boot that was the
+   live session, and it fared worse. The greeter was simply the
+   only graphics client present that night (which is where the
+   failed-autologin chain above still matters: it explains why
+   a greeter was on screen to be hit).
+2. The unified-memory parameters are **exonerated**: the
+   session boot wedged *without* them, another boot carried
+   them and was completely clean, and the greeter boot was
+   clean for its first ten minutes on them and ever since.
+   Neither necessary nor sufficient.
+3. The greeter's configuration is identical across its clean
+   and wedged starts; the only changed variable was concurrent
+   GPU load.
+
+The strong candidate (named as a candidate, not kernel-proven):
+an intermittent amdgpu graphics-ring lockup on gfx1151 when a
+particular sustained heavy compute-load shape coincides with
+graphics submissions — graphics jobs exceed the ring lockup
+timeout, the driver resets the ring, clients lose their GL
+contexts, and a continuously re-rendering client re-queues into
+the still-saturated GPU, producing the flashing loop.
+Restarting the display manager broke it by dropping the wedged
+client contexts while the compute burst passed.
+
+**Prevention: staged, NOT applied — stated plainly.**
+
+- Rejected on evidence: forcing the greeter to software
+  rendering. It treats the greeter as the culprit; the census
+  proves it is not, and it would leave the session exactly as
+  exposed.
+- Staged, ready to prove: raising `amdgpu.lockup_timeout` in
+  the boot flags, decided by a named discriminating test — sit
+  at the greeter with nobody logged in, reproduce the heavy
+  compute-load shape, and watch: episodes vanishing under a
+  longer timeout with identical load proves a timeout-margin
+  mechanism; episodes persisting means a hard hang and the
+  proposal is dead. The test needs a window when the owner is
+  not using the machine, and has not run yet.
+- A greeter-wedge watchdog (restart the display manager only
+  when a greeter-faulting timeout loop is in progress **and no
+  user session is active** — a session wedge is a different
+  incident and must never be "helped" by killing the session)
+  has been built to the detection stage and is in a log-only
+  dry run: its detector replayed against this episode's journal
+  fires on the signature, refuses when a session is assumed
+  active, and stays silent on the clean boots. The restart
+  action is **not** enabled; the spec requires a full day of
+  clean log-only running first.
+
+**Status line, honestly:** root cause narrowed to one strong
+candidate; prevention staged, nothing applied; the verified
+workaround above remains the cure if it recurs.
