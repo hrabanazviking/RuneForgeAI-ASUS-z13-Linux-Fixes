@@ -41,6 +41,7 @@ how to apply, how to verify, and caveats.
 | [server-power-on-ac](fixes/server-power-on-ac/) | Machine sleeps on AC power | **Optional** — a preference, not a defect fix |
 | [no-fingerprint](fixes/no-fingerprint/) | Fingerprint auth stack installed by default | **Optional** — privacy choice: full removal |
 | [preboot-external-display](fixes/preboot-external-display/) | External monitors stay dark until Linux loads | **Known limitation** — firmware behaviour, no fix known |
+| [greeter-gpu-wedge](fixes/greeter-gpu-wedge/) | Login screen (SDDM) flashes black/white continuously — the greeter wedges the GPU in a reset loop | **Known issue** — verified workaround: restart the display manager |
 
 Plus one recipe file: [recipes/vulkan-llama-whisper.md](recipes/vulkan-llama-whisper.md)
 — building llama.cpp / whisper.cpp with Vulkan on gfx1151 (including the
