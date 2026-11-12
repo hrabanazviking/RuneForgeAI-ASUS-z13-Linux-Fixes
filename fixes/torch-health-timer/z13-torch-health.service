@@ -1,0 +1,5 @@
+[Unit]
+Description=Z13 daily torch-health proof (both venvs)
+[Service]
+Type=oneshot
+ExecStart=%h/ai/bin/torch-health-daily.sh
