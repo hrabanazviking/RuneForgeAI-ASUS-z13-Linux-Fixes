@@ -45,7 +45,9 @@ how to apply, how to verify, and caveats.
 | [server-power-on-ac](fixes/server-power-on-ac/) | Machine sleeps on AC power | **Optional** — a preference, not a defect fix |
 | [no-fingerprint](fixes/no-fingerprint/) | Fingerprint auth stack installed by default | **Optional** — privacy choice: full removal |
 | [preboot-external-display](fixes/preboot-external-display/) | External monitors stay dark until Linux loads | **Known limitation** — firmware behaviour, no fix known |
-| [greeter-gpu-wedge](fixes/greeter-gpu-wedge/) | Login screen (SDDM) flashes black/white continuously — the greeter wedges the GPU in a reset loop | **Known issue** — verified workaround: restart the display manager (trigger chain identified; if the first login after it collapses, restart once more — see notes) |
+| [greeter-gpu-wedge](fixes/greeter-gpu-wedge/) | Login screen (SDDM) flashes black/white continuously — the greeter wedges the GPU in a reset loop | **Known issue** — verified workaround: restart the display manager (trigger chain identified; if the first login after it collapses, restart once more — see notes). Fix-campaign update appended: 8-boot census verdict — a load-coincident ring lockup, unified-memory params exonerated, prevention staged not applied |
+| [ufw-lan-firewall](fixes/ufw-lan-firewall/) | No host firewall active while a web server listens on all interfaces | **Fixed** — LAN-first UFW ruleset (LAN-only web/KDE Connect, tailnet + owner overlay trusted, no SSH rule while sshd is off) applied under a dead-man rollback and proven live |
+| [package-hygiene](fixes/package-hygiene/) | `apt autoremove` proposes 114 orphans, some of them load-bearing | **Method proven** — classify every orphan by name with evidence; 52 removed by name, the rest held in named clusters; protected stack re-verified. Never blanket-autoremove a developer machine |
 
 Plus one recipe file: [recipes/vulkan-llama-whisper.md](recipes/vulkan-llama-whisper.md)
 — building llama.cpp / whisper.cpp with Vulkan on gfx1151 (including the
