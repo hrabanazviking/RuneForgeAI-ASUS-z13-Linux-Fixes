@@ -1,0 +1,15 @@
+#!/bin/sh
+# ROG Flow Z13 (GZ302EA): keep the folio keyboard (0b05:1a30) and N-KEY (0b05:18c6) able to wake
+# the machine across suspend; re-assert USB wakeup enables on resume path too.
+case "$1" in
+    pre|post)
+        for dev in /sys/bus/usb/devices/*; do
+            v=$(cat "$dev/idVendor" 2>/dev/null)
+            p=$(cat "$dev/idProduct" 2>/dev/null)
+            if [ "$v" = "0b05" ] && { [ "$p" = "1a30" ] || [ "$p" = "18c6" ]; }; then
+                echo enabled > "$dev/power/wakeup" 2>/dev/null
+            fi
+        done
+        ;;
+esac
+exit 0

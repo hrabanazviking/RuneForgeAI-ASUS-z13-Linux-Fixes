@@ -1,0 +1,11 @@
+# Example only — merge these into YOUR /etc/default/grub, keeping your
+# own distro lines (especially your own resume= UUID, if you use one).
+# The resume UUID below is a placeholder: use the UUID of YOUR swap.
+
+GRUB_CMDLINE_LINUX_DEFAULT='quiet splash resume=UUID=<YOUR-RESUME-UUID> amdgpu.dcdebugmask=0x610 acpi_backlight=native'
+
+# Let GRUB draw through the firmware's graphics output (helps the boot
+# menu render at the panel's native mode). Note: this does NOT make
+# external monitors light up before Linux loads on the GZ302 — see
+# ../preboot-external-display/NOTES.md.
+GRUB_GFXMODE=auto
