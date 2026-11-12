@@ -1,0 +1,11 @@
+# Example only — merge these into YOUR /etc/default/grub, keeping your
+# own distro lines (especially your own resume= UUID, if you use one).
+# The resume UUID below is a placeholder: use the UUID of YOUR swap.
+#
+# The three added parameters lift the ~61 GB ROCm allocation ceiling
+# on unified-memory Strix Halo: iommu=pt (pass-through, keeps the
+# NPU alive — do NOT use amd_iommu=off, it kills the NPU),
+# amdgpu.gttsize=126976 (124 GiB GTT pool, MiB),
+# ttm.pages_limit=32505856 (same 124 GiB in pages).
+
+GRUB_CMDLINE_LINUX_DEFAULT='quiet splash resume=UUID=<YOUR-RESUME-UUID> iommu=pt amdgpu.gttsize=126976 ttm.pages_limit=32505856'
