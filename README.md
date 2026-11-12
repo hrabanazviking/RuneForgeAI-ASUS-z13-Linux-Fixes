@@ -33,15 +33,18 @@ how to apply, how to verify, and caveats.
 |---|---|---|
 | [folio-keyboard-wakeup](fixes/folio-keyboard-wakeup/) | Folio keyboard can no longer wake the machine after the first suspend | **Fixed** |
 | [s0ix-sleep-drain](fixes/s0ix-sleep-drain/) | S0ix "sleep" keeps draining the battery | **Configured** — suspend-then-hibernate after 2 h |
-| [wifi-mt7925-aspm](fixes/wifi-mt7925-aspm/) | MediaTek MT7925 Wi-Fi drops out | **Fixed** — ASPM disabled for the driver |
+| [wifi-mt7925-aspm](fixes/wifi-mt7925-aspm/) | MediaTek MT7925 Wi-Fi drops out | **Resolved on kernels ≥ 6.17** — A/B-verified: the disable_aspm workaround is not needed there and is withdrawn on this machine; on older kernels the original note applies |
 | [ethernet-r8152](fixes/ethernet-r8152/) | USB-C Ethernet (Realtek r8152) link flapping; adapter dead after idle | **Fixed** — software readiness: working udev power rule (the popular modprobe option is a dead parameter — see the notes) and the NetworkManager profile-pinning pitfall both documented |
 | [grub-flags](fixes/grub-flags/) | Panel glitches on wake (PSR/VRR); backlight keys don't work | **Fixed** — kernel flags + GRUB gfx mode |
+| [unified-memory-params](fixes/unified-memory-params/) | ROCm caps GPU allocations at ~61 GB of the unified memory | **Fixed** — GTT pool 60.75 → 121.5 GiB; an 80 GB single allocation verified (and: the `amd_iommu=off` variant kills the NPU — use `iommu=pt`) |
 | [asus-control-stack](fixes/asus-control-stack/) | No ASUS profiles/control under Linux; PPA has no 26.10 build | **Fixed** — asusctl 6.3.8 + supergfxctl built from source |
+| [speaker-gain](fixes/speaker-gain/) | Internal speakers quiet — the CS35L41 amps boot on the low-gain firmware profile | **Fixed** — 19.5 dB bincfg profile selected; "Gain: 19" read back at probe, twice (loudness itself judged by ear) |
 | [pytorch-gfx1151](fixes/pytorch-gfx1151/) | Stock PyTorch ROCm wheel segfaults on gfx1151 | **Fixed** — AMD TheRock arch-matched wheels (+ honest fp32 caveats) |
+| [npu-userland](fixes/npu-userland/) | XDNA 2 NPU unusable from Linux userland; the documented EP road is Windows-only | **Working** — XRT from Ubuntu universe + memlock drop-in; FastFlowLM serves an LLM on the NPU (81.96 tok/s decode, NPU-lock log proof) |
 | [server-power-on-ac](fixes/server-power-on-ac/) | Machine sleeps on AC power | **Optional** — a preference, not a defect fix |
 | [no-fingerprint](fixes/no-fingerprint/) | Fingerprint auth stack installed by default | **Optional** — privacy choice: full removal |
 | [preboot-external-display](fixes/preboot-external-display/) | External monitors stay dark until Linux loads | **Known limitation** — firmware behaviour, no fix known |
-| [greeter-gpu-wedge](fixes/greeter-gpu-wedge/) | Login screen (SDDM) flashes black/white continuously — the greeter wedges the GPU in a reset loop | **Known issue** — verified workaround: restart the display manager |
+| [greeter-gpu-wedge](fixes/greeter-gpu-wedge/) | Login screen (SDDM) flashes black/white continuously — the greeter wedges the GPU in a reset loop | **Known issue** — verified workaround: restart the display manager (trigger chain identified; if the first login after it collapses, restart once more — see notes) |
 
 Plus one recipe file: [recipes/vulkan-llama-whisper.md](recipes/vulkan-llama-whisper.md)
 — building llama.cpp / whisper.cpp with Vulkan on gfx1151 (including the
