@@ -1,0 +1,6 @@
+[Unit]
+Description=Z13 @home btrfs snapshot
+After=local-fs.target
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/z13-snapshot-home

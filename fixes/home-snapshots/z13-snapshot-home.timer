@@ -1,0 +1,7 @@
+[Unit]
+Description=Z13 daily @home snapshot
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+[Install]
+WantedBy=timers.target
