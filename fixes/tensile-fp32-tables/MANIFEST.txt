@@ -1,0 +1,26 @@
+tensile-gfx1151 manifest (2026-11-12)
+
+SHA-256 of the compiled Type_SS library files in the tuned rocBLAS
+library built from the logic files in this folder — these hashes
+record the exact library that produced the numbers in NOTES.md.
+(The compiled .dat/.co binaries are build outputs and are not
+shipped in this repo; rebuild them from the logic files.)
+
+e961209abcf277f920a0ed8d60522e7ea5dd72562920c15b9bba8031b0c915b7  lib/TensileLibrary_Type_SS_Contraction_l_Ailk_Bjlk_Cijk_Dijk_gfx1151.dat
+eb50d18ed41465a231d5e5eb3f2f6e2577cf65b4e18e374c6bd034c02b49147f  lib/TensileLibrary_Type_SS_Contraction_l_Ailk_Bljk_Cijk_Dijk_gfx1151.dat
+95a7316c8950fb71438b014ef72660805b63c94e8b7f549b6d417addd0dd80a2  lib/TensileLibrary_Type_SS_Contraction_l_Alik_Bjlk_Cijk_Dijk_gfx1151.dat
+3cce53f82b8594425754be34e0611db58b4fd850124cae918931bb826a9c7f65  lib/TensileLibrary_Type_SS_Contraction_l_Alik_Bljk_Cijk_Dijk_gfx1151.dat
+bf5b55e4291e305005dc389e1baf580b60c2bb23b1d27495e577980d080d3862  lib/TensileLibrary_Type_SS_Contraction_l_Ailk_Bjlk_Cijk_Dijk_gfx1151.co
+7a2c3d226953bd36fc6b13b0a6a01c2a612586c80440c43a91101d3125a4af94  lib/TensileLibrary_Type_SS_Contraction_l_Ailk_Bljk_Cijk_Dijk_gfx1151.co
+b25f6a83ad3f84e1c2671d247739b29f8df369799f1c0c21061a817c895d4420  lib/TensileLibrary_Type_SS_Contraction_l_Alik_Bjlk_Cijk_Dijk_gfx1151.co
+6f54aca38f646be0da34abf568709d4eb6f69b1002defb6410051866c1c2bb06  lib/TensileLibrary_Type_SS_Contraction_l_Alik_Bljk_Cijk_Dijk_gfx1151.co
+
+Configuration files shipped in this folder (the tuning sources of
+truth — see NOTES.md for how they were produced and used):
+
+gfx1151_Cijk_Ailk_Bljk_SB.yaml   841614 bytes  retargeted SGEMM logic, NN pool
+gfx1151_Cijk_Alik_Bljk_SB.yaml   790683 bytes  retargeted SGEMM logic, NT pool
+gfx1151_Cijk_Ailk_Bjlk_SB.yaml  1012711 bytes  retargeted SGEMM logic, TN pool
+gfx1151_Cijk_Alik_Bjlk_SB.yaml   555074 bytes  retargeted SGEMM logic, TT pool
+grid.yaml                            430 bytes  the benchmark shape grid
+winners.json                       14725 bytes  measured winner per shape/combo
