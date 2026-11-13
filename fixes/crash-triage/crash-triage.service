@@ -1,0 +1,11 @@
+[Unit]
+Description=Crash triage: quarantine sandbox/experiment apport reports, leave real ones
+After=default.target
+
+[Service]
+ExecStart=/usr/bin/python3 %h/.local/bin/crash-triage.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
