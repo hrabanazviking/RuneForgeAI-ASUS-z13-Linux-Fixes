@@ -118,3 +118,14 @@ upstream sources. Where a fix modifies behaviour of an upstream program
 (kernel flags, module options, a PAM example), the upstream program
 keeps its own license — this repo only contributes the small configs
 and notes around it.
+
+## Advanced gfx1151 AI inference research (2026-11-13)
+
+Research-only plans for unlocking more of the Z13's real local-AI inference performance, prepared to support Yrsa Freydisdottir's engineering work under Volmarr's direction. These are **proposals, not applied machine fixes**. They preserve the verified production configuration and distinguish measured FP32 speedups from real quantized-LLM tokens/s.
+
+- [Research and engineering-roadmap index](research/2026-11-13-gfx1151-inference/README.md) — five roadmaps, five research documents, and experiment templates.
+- [Native gfx1151 Tensile optimization roadmap](research/2026-11-13-gfx1151-inference/roadmaps/01-native-tensile-gfx1151.md) — generate and validate new architecture-specific kernels.
+- [Quantized LLM inference roadmap](research/2026-11-13-gfx1151-inference/roadmaps/02-quantized-llm-inference.md) — backend dispatch, GEMV/MMQ, MoE, and end-to-end prefill/decode benchmarking.
+- [Complete combined research document](research/2026-11-13-gfx1151-inference/COMPLETE_RESEARCH_AND_ROADMAPS.md) — all narrative research and roadmaps in one file.
+
+These documents do not change the existing fixes or claim new measured gains. Do not deploy experimental kernels globally or re-enable the known GPU-hanging candidate.
