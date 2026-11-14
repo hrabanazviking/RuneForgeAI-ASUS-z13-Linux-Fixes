@@ -3,8 +3,9 @@ tensile-gfx1151 manifest (2026-11-12)
 SHA-256 of the compiled Type_SS library files in the tuned rocBLAS
 library built from the logic files in this folder — these hashes
 record the exact library that produced the numbers in NOTES.md.
-(The compiled .dat/.co binaries are build outputs and are not
-shipped in this repo; rebuild them from the logic files.)
+(Update 2026-11-13: the compiled library now also ships in this
+repo under bundle/ and as release archives; the hashes below
+match the Type_SS files inside it exactly.)
 
 e961209abcf277f920a0ed8d60522e7ea5dd72562920c15b9bba8031b0c915b7  lib/TensileLibrary_Type_SS_Contraction_l_Ailk_Bjlk_Cijk_Dijk_gfx1151.dat
 eb50d18ed41465a231d5e5eb3f2f6e2577cf65b4e18e374c6bd034c02b49147f  lib/TensileLibrary_Type_SS_Contraction_l_Ailk_Bljk_Cijk_Dijk_gfx1151.dat

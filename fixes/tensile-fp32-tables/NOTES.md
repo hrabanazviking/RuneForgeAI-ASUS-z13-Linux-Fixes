@@ -174,6 +174,14 @@ used — and a broken one fails loudly, not silently.
   table per combo.
 - `MANIFEST.txt` — SHA-256 of the compiled `.dat`/`.co` files
   in the library that produced the numbers above.
+- `bundle/` — **the compiled drop-in library itself** (added
+  2026-11-13): the full rocBLAS Tensile library with the tuned
+  Type_SS files in place, the logic files, the campaign report,
+  and its own `SHA256SUMS.txt`. The Type_SS hashes inside it match
+  `MANIFEST.txt` exactly — it is the same library that produced
+  the numbers above, not a rebuild. Also downloadable as release
+  archives (`tensile-gfx1151-fp32-tables.tar.zst` / `.tar.gz`).
+  Point `ROCBLAS_TENSILE_LIBPATH` at `bundle/lib` to use it.
 
 ## Apply (wiring)
 
